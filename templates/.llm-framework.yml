@@ -1,0 +1,23 @@
+# LLM Framework Configuration
+# Copy this file to your project root as .llm-framework.yml
+# The agent reads this file at session start to locate your framework repos.
+#
+# template-version: 1.0.0
+
+# Required: path to the infrastructure repo
+infrastructure: ~/Projects/infrastructure
+
+# Optional: path to your team or organization profile repo
+# Remove the comment to activate. Absent = standalone mode.
+# team: ~/Projects/domains/my-team
+
+# Optional: path to your personal profile repo (keep this repo private)
+# Remove the comment to activate. Absent = no personal layer.
+# personal: ~/Projects/personal/your-name
+
+# Optional: path to a division-level profile repo (enterprise use)
+# Resolved between team and infrastructure in priority order.
+# division: ~/Projects/domains/my-division
+
+# Resolution order (most specific wins):
+#   personal > team > division > infrastructure
