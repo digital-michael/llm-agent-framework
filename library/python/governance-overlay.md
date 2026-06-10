@@ -125,6 +125,27 @@ Some backends clamp temperature to a small positive floor but this is still dete
 
 ---
 
+## Resource Lifecycle Contract (RLC)
+
+See `governance/rlc.md` for the full definition. Python-specific phase mappings:
+
+| Phase | Python idioms |
+|---|---|
+| **Allocation** | `__init__`, factory function, class method constructor |
+| **Configuration** | constructor parameters, `dataclass`/Pydantic fields, environment variables |
+| **Activation** | `__enter__` (context manager), `connect()`, `open()`, `start()` |
+| **Primary Use** | method calls; verify access scope (public vs `_` private convention) |
+| **Deactivation** | `__exit__`, `close()`, `shutdown()`, `stop()` |
+| **Deallocation** | GC + `__del__`; prefer `with`/`async with` for deterministic cleanup |
+
+**Common Python failures:**
+- Resources opened without a `with` block — deallocation is not guaranteed on exception
+- Configuration mutated after activation (e.g., modifying a live connection's settings)
+- Async resources allocated with `async with` but used outside the async context
+- Agent check: verify every I/O or network resource uses a `with` or `async with` block, or documents why not
+
+---
+
 ## [Add new lessons here — format: `[date] [context] Lesson. → Action.`]
 
 -

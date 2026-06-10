@@ -35,6 +35,27 @@
 
 ---
 
+## Resource Lifecycle Contract (RLC)
+
+See `governance/rlc.md` for the full definition. JavaScript-specific phase mappings:
+
+| Phase | JavaScript idioms |
+|---|---|
+| **Allocation** | constructor, factory function, module-level initialization |
+| **Configuration** | options object, environment variables, module constants |
+| **Activation** | `.connect()`, `.open()`, first async invocation, `addEventListener` |
+| **Primary Use** | method calls, event-driven callbacks; verify listener cleanup plan |
+| **Deactivation** | `.close()`, `.disconnect()`, `removeEventListener`, `AbortController.abort()` |
+| **Deallocation** | GC; explicit cleanup for DOM nodes, event listeners, and timers |
+
+**Common JavaScript failures:**
+- `setInterval` or `setTimeout` allocated with no stored reference — cannot be cleared
+- DOM event listeners added without a paired `removeEventListener` — leak on component unmount
+- Fetch/async operations not cancelled via `AbortController` when the consuming scope is torn down
+- Agent check: verify every timer and event listener has a defined deactivation path
+
+---
+
 ## [Add new lessons here — format: `[date] [context] Lesson. → Action.`]
 
 -

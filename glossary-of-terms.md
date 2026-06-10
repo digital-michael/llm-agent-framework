@@ -53,6 +53,9 @@ A named configuration specifying which context sources are loaded at session sta
 ### ReAct Pattern
 The underlying execution model of the iterative implementation loop: **Reason** about what to do → **Act** (implement) → **Observe** the outcome → reason about the next step. Each iteration is one complete ReAct cycle. See `governance/workflows/assignment-iterative-process.md`.
 
+### Resource Lifecycle Contract (RLC)
+A framework-level thinking discipline applied to any resource at any level — code, operations, infrastructure, process, or external system. Asks whether the full lifecycle of a resource has been considered across six phases: Allocation, Configuration, Activation, Primary Use, Deactivation, and Deallocation. Augments SOLID, GRASP, DRY, IoC, and DI — does not replace them. Applied as a consideration lens by the agent during review; documentation is produced only when scale or criticality warrants it. Verification scales on a gradient from silent agent check (small) to human sign-off with paired unit and integration tests (large/critical). See `governance/rlc.md`.
+
 ### Retrospective
 A required step at the end of every assignment. Captures lessons learned (from three sources: LLM agent, practitioner, tech stack), identifies patterns that recur, and updates governance when warranted. See `governance/workflows/assignment-workflow.md`.
 

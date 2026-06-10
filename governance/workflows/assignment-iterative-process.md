@@ -71,6 +71,7 @@ Before committing:
 - [ ] Dependencies correctly versioned
 - [ ] Type safety reviewed
 - [ ] Relevant design pattern checks complete
+- [ ] RLC lens applied: full lifecycle considered for each resource introduced in this unit (see `governance/rlc.md`)
 
 If the gate fails, fix the issue before proceeding. Do not commit broken work.
 

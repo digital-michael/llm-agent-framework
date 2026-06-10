@@ -33,6 +33,28 @@
 
 ---
 
+## Resource Lifecycle Contract (RLC)
+
+See `governance/rlc.md` for the full definition. Java-specific phase mappings:
+
+| Phase | Java idioms |
+|---|---|
+| **Allocation** | constructor, factory method, Spring `@Bean` / DI container |
+| **Configuration** | constructor args, builder pattern, `@Value` / `application.properties` |
+| **Activation** | `@PostConstruct`, `start()`, `init()`, `open()`, application context refresh |
+| **Primary Use** | method calls against interface; verify `@Scope` (singleton vs prototype) |
+| **Deactivation** | `@PreDestroy`, `stop()`, `close()`, `shutdown()` |
+| **Deallocation** | GC + `AutoCloseable`; Spring container manages lifecycle for beans |
+
+**Common Java failures:**
+- `@PostConstruct`/`@PreDestroy` hooks missing on Spring beans that manage I/O resources
+- `AutoCloseable` resources not used in try-with-resources — deallocation not guaranteed on exception
+- Configuration injected after activation (`@Value` fields used before context is fully initialized)
+- Prototype-scoped beans that acquire resources but have no defined deallocation — Spring does not destroy them
+- Agent check: verify every `Closeable`/`AutoCloseable` resource is in a try-with-resources block or has an explicit `@PreDestroy`
+
+---
+
 ## [Add new lessons here — format: `[date] [context] Lesson. → Action.`]
 
 -

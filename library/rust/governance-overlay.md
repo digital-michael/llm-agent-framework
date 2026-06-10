@@ -37,6 +37,27 @@
 
 ---
 
+## Resource Lifecycle Contract (RLC)
+
+See `governance/rlc.md` for the full definition. Rust-specific phase mappings:
+
+| Phase | Rust idioms |
+|---|---|
+| **Allocation** | `Type::new()`, struct literal, `Box::new()`, allocator |
+| **Configuration** | builder pattern, config struct passed to constructor |
+| **Activation** | `.connect()`, `.bind()`, `.start()`, or implicit (resources are ready on construction by convention) |
+| **Primary Use** | method calls; ownership and borrow checker enforce single-owner usage patterns |
+| **Deactivation** | explicit `.close()`, `drop()`, sending a shutdown signal to a task |
+| **Deallocation** | `Drop` trait — automatic at scope exit; verify `Drop` impl for resources with external state |
+
+**Common Rust failures:**
+- External state (file handle, socket) not explicitly closed before scope exit — `Drop` may not flush or signal correctly
+- `Arc<Mutex<T>>` shared resources where ownership of deallocation is ambiguous — verify last-owner responsibility
+- `tokio` tasks spawned without a `JoinHandle` or cancellation mechanism — no defined deallocation path
+- Agent check: verify every resource with external state (I/O, network, OS handle) has a defined `Drop` impl or explicit `.close()` call
+
+---
+
 ## [Add new lessons here — format: `[date] [context] Lesson. → Action.`]
 
 -

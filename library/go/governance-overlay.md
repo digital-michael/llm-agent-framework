@@ -38,6 +38,28 @@
 
 ---
 
+## Resource Lifecycle Contract (RLC)
+
+See `governance/rlc.md` for the full definition. Go-specific phase mappings:
+
+| Phase | Go idioms |
+|---|---|
+| **Allocation** | `NewXxx()` constructor, composite literal, `sync.Pool.Get()` |
+| **Configuration** | functional options (`WithXxx()`), config struct passed to constructor |
+| **Activation** | `Start()`, `Open()`, `Dial()`, `ListenAndServe()`, or implicit on first call |
+| **Primary Use** | interface method calls; verify access scope (exported vs unexported) |
+| **Deactivation** | `Stop()`, `Close()`, `Shutdown()`, `cancel()` |
+| **Deallocation** | GC handles memory; explicit `defer resource.Close()` for I/O and network resources |
+
+**Common Go failures:**
+- Missing `defer resource.Close()` immediately after a successful open — pair them at the same site
+- Configuration applied after activation (e.g., setting options on an already-started server)
+- Goroutines allocated without a defined deactivation path (no context cancellation, no `WaitGroup`)
+- Shared resources passed to goroutines without defined ownership — concurrent access without a designated owner
+- Agent check: verify `defer` is present and correctly scoped for every I/O resource opened
+
+---
+
 ## [Add new lessons here — format: `[date] [context] Lesson. → Action.`]
 
 -

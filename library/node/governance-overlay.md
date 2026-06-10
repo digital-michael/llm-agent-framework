@@ -35,6 +35,27 @@
 
 ---
 
+## Resource Lifecycle Contract (RLC)
+
+See `governance/rlc.md` for the full definition. Node.js-specific phase mappings:
+
+| Phase | Node.js idioms |
+|---|---|
+| **Allocation** | constructor, factory function, `require`/`import` at module load |
+| **Configuration** | options object passed to constructor, environment variables |
+| **Activation** | `listen()`, `connect()`, `.start()`, first async call |
+| **Primary Use** | method calls, event listeners; verify listener cleanup plan at activation |
+| **Deactivation** | graceful shutdown handler (`SIGTERM`/`SIGINT`), `.close()`, `.end()` |
+| **Deallocation** | GC + explicit `.destroy()` for streams; remove all event listeners |
+
+**Common Node.js failures:**
+- Event listeners added during activation never removed during deactivation — memory leak
+- Server allocated but graceful shutdown (`SIGTERM`/`SIGINT`) not implemented
+- Database pool or connection opened at module load with no corresponding close on process exit
+- Agent check: verify `SIGTERM`/`SIGINT` handlers call deactivation for every server and connection resource
+
+---
+
 ## [Add new lessons here — format: `[date] [context] Lesson. → Action.`]
 
 -

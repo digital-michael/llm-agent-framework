@@ -124,6 +124,27 @@ value=$(jq -r --arg s "$svc" '.services[$s].image' "$CONFIG_FILE")
 
 ---
 
+## Resource Lifecycle Contract (RLC)
+
+See `governance/rlc.md` for the full definition. Bash-specific phase mappings:
+
+| Phase | Bash idioms |
+|---|---|
+| **Allocation** | `mktemp`, opening file descriptors (`exec N>file`), acquiring a lock file |
+| **Configuration** | `readonly` constants, argument parsing, environment variable validation |
+| **Activation** | starting a background process (`&`), opening a connection, acquiring a lock |
+| **Primary Use** | reading/writing file descriptors, calling external tools, piping data |
+| **Deactivation** | signaling background processes (`kill $PID`), releasing locks |
+| **Deallocation** | `trap 'cleanup' EXIT` — remove temp files, close file descriptors (`exec N>&-`), release locks |
+
+**Common Bash failures:**
+- Temporary files or lock files created without a `trap ... EXIT` cleanup — leaked on error exit
+- Background processes (`&`) started without storing their PID — cannot be waited for or terminated
+- File descriptors opened with `exec N>` never closed — descriptor leak
+- Agent check: verify every `mktemp`, background process, and lock acquisition has a corresponding `trap 'cleanup' EXIT` handler
+
+---
+
 ## [Add new lessons here — format: `[date] [context] Lesson. → Action.`]
 
 -
