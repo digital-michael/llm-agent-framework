@@ -78,6 +78,29 @@ llm-agent-framework-tools/    ← platform-specific implementations
 
 ---
 
+### `retrofit-project`
+
+**Purpose:** Bring an existing project into compliance with the framework — creates `.llm-framework.yml`, `docs/governance/` scaffolding, and populates the repo context in the domain profile.
+
+**Contract:**
+- Accept: project path, infrastructure path, domain profile path (required — tool blocks if absent), repo name
+- Validate: domain profile path exists; if not, stop and instruct the user to run `init-profile` first
+- Audit: read the project's existing docs, lessons, and structure; produce a gap summary before writing anything
+- Action: write `.llm-framework.yml` at project root (delegates to `scaffold-project` contract)
+- Action: create `docs/governance/` with `README.md`, `lessons-learned.md`, `agent-assignment.md` (from template), `session-context.md` (from template)
+- Action: write `<domain-profile>/<repo-name>/README.md` (from `templates/team/repo-name/README.md`) with project identity and load order pre-populated
+- Action: index existing lessons files into `docs/governance/lessons-learned.md` as pointers — do not duplicate or delete them
+- Output: list of created files, list of corrections still needed, next steps
+
+**Constraints:**
+- Never overwrite existing files without explicit confirmation
+- Never write agent behavior rules into `docs/governance/` — those belong in the domain profile
+- Do not proceed past the domain check (Step 2) if the domain profile path does not exist
+
+**When to use:** When adopting the framework in an existing project that already has its own documentation and conventions. See `governance/workflows/retrofit-existing-project.md` for the full workflow.
+
+---
+
 ## Platform Implementations
 
 Implementations of the above contracts are provided in `llm-agent-framework-tools/`:
