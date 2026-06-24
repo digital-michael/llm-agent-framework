@@ -24,7 +24,8 @@ Example:
 ## Files
 
 - `template.md` — blank template for a new lessons-learned document
-- Add dated files as your instance grows: `lessons-2026-Q2.md`, etc.
+- `retrofit-project-2026.md` — lessons from retrofit workflow applications (RTK, local-lab-ai-stack, 2026)
+- `framework-architecture-2026.md` — gaps in framework architecture itself: entry points, load cascade, yml integration
 
 ---
 
