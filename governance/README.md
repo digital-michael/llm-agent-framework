@@ -11,6 +11,8 @@
 | Directory / File | Purpose | Override |
 |---|---|---|
 | `system-prompts/` | Base system prompt template and composition guidance | replacement |
+| `first-principles-reasoning.md` | Foundational reasoning discipline: decompose to fundamentals before applying patterns or convention. Loaded at every session start, regardless of profile. | replacement |
+| `separation-of-concerns.md` | Foundational categorization discipline: sort a problem into logical units by data/information/process/action/responsibility before applying SOLID/GRASP/DRY. Loaded at every session start, regardless of profile. | replacement |
 | `lessons-learned/` | Lessons template and accumulation structure | replacement |
 | `assignments/` | Assignment template (governance-layer copy) | replacement |
 | `workflows/` | Assignment lifecycle and iterative implementation workflows | replacement |

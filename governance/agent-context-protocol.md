@@ -41,6 +41,8 @@ A **profile** specifies which context sources are loaded. Profiles scale from na
 | `full` | Standard + all decisions + patterns + full governance | Architecture, L3/L4 design, cross-cutting changes |
 | `subagent` | Custom subset provided by parent — receiver declares exactly what arrived | Delegation where parent controls content |
 
+**Always loaded, regardless of profile:** `system-prompts/base-system-prompt.md`, `first-principles-reasoning.md`, and `separation-of-concerns.md`. These define the agent's operating stance — not domain-specific overlay content — so even a `minimal` profile includes them.
+
 **Overlay:** any profile can include `+component:<name>` to additionally load that component's guidance docs. Maximum two overlays per profile; beyond that use `full`.
 
 **Profile selection authority:**

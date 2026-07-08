@@ -56,6 +56,8 @@ Execute in order:
 6. **Testing requirements** — unit and integration tests specified
 
 > Keep intake quality high. A strong plan in Step 3 determines implementation quality downstream.
+>
+> For ADR check and Plan, apply first-principles reasoning (see `../first-principles-reasoning.md`) and separation of concerns (see `../separation-of-concerns.md`): ground the plan in the fundamental requirements and constraints, and sort concerns into logical units, before defaulting to an existing pattern or convention.
 
 ### Step 3b: HITL Approval Gate
 
