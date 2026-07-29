@@ -15,6 +15,15 @@ infrastructure: ~/Projects/infrastructure
 # Remove the comment to activate. Absent = no personal layer.
 # personal: ~/Projects/personal/your-name
 
+# Optional: a single stable resolution key for the personal profile above.
+# Pick one value and use it identically everywhere — NOT an OS login name (differs
+# per workstation) and NOT assumed to match your username on every git platform
+# (GitHub/GitLab/Forgejo/Bitbucket usernames may differ from each other). If you
+# need to record per-platform usernames, do it once inside the personal profile
+# repo (e.g. its README) — don't add per-platform fields here or duplicate the
+# mapping into every project.
+# personal_identity: your-chosen-identity-key
+
 # Optional: path to a division-level profile repo (enterprise use)
 # Resolved between team and infrastructure in priority order.
 # division: ~/Projects/domains/my-division
