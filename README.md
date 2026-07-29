@@ -119,6 +119,6 @@ The tool contracts (what each tool must do) are defined in [docs/tooling.md](doc
 
 ## Related Reading
 
-- [Introduction to Using LLM Agents: From Concepts to Actions](../../article-overview.md)
-- [Software Solutions with LLM Agents: Governance and Feedback with Success](../../article-technical.md)
+- [Introduction to Using LLM Agents: From Concepts to Actions](../llm-agent-articles/article-overview.md)
+- [Software Solutions with LLM Agents: Governance and Feedback with Success](../llm-agent-articles/article-technical.md)
 
