@@ -41,13 +41,32 @@ A **profile** specifies which context sources are loaded. Profiles scale from na
 | `full` | Standard + all decisions + patterns + full governance | Architecture, L3/L4 design, cross-cutting changes |
 | `subagent` | Custom subset provided by parent — receiver declares exactly what arrived | Delegation where parent controls content |
 
-**Always loaded, regardless of profile:** `system-prompts/base-system-prompt.md`, `first-principles-reasoning.md`, and `separation-of-concerns.md`. These define the agent's operating stance — not domain-specific overlay content — so even a `minimal` profile includes them.
+**Always loaded, regardless of profile:** `system-prompts/base-system-prompt.md`, `first-principles-reasoning.md`, `separation-of-concerns.md`, and the personal profile if one is configured (see below). These define the agent's operating stance — not domain-specific overlay content — so even a `minimal` profile includes them.
 
 **Overlay:** any profile can include `+component:<name>` to additionally load that component's guidance docs. Maximum two overlays per profile; beyond that use `full`.
 
 **Profile selection authority:**
 - **User ↔ Agent:** agent proposes profile based on task scope; user may override
 - **Agent ↔ Agent:** parent always specifies; subagent confirms receipt
+
+---
+
+## Personal Profile Resolution
+
+If the project's `.llm-framework.yml` has a `personal:` field set, load the personal profile **first, every session, regardless of which profile (`minimal`/`standard`/`full`) is selected for the task.** Personal profile is a mode-level setting (who you're working with), not a task-scoped one (how much governance this task needs) — the two are independent.
+
+**Mechanic:**
+1. Read `.llm-framework.yml`. If `personal:` is absent, skip this section entirely — no personal layer, no error.
+2. If present, also read `personal_identity:` if set (a stable identity key — see below). Load, in order:
+   - `<personal>/context-protocol.md` — overrides this document's declaration/profile-selection preferences for this session
+   - `<personal>/collaboration-preferences.md` — overrides `governance/collaboration-directives.md`'s autonomy-level defaults
+   - `<personal>/collaboration-patterns.md` — extends `governance/collaboration-patterns.md` (named/numbered entries replace matching ones; new entries add to the set)
+   - `<personal>/roles-guide.md` — overrides `governance/agent-roles-guide.md`
+3. Load domain/team files next, then project-specific files — personal is the most general "who," domain/project narrow to "what."
+
+**`personal_identity`** is a single stable resolution key — deliberately independent of any OS login name (varies per workstation for the same person) and of any single git platform's username (GitHub/GitLab/Forgejo/Bitbucket usernames may differ from each other for the same person). Per-platform username mapping, if needed, belongs inside the personal profile repo itself (e.g. its README), not duplicated into every project's `.llm-framework.yml`.
+
+**Team/shared repos:** a personal profile is cross-repo — the same `personal:`/`personal_identity:` values are committed into any project's `.llm-framework.yml` regardless of whether that project's domain is solo or team-shared, as long as there is currently one real operator across those repos. This does not yet solve the case of a repo with more than one actual contributor, each needing their own personal profile loaded from the same committed dotfile — that requires a per-developer local override mechanism (e.g. a gitignored `.llm-framework.local.yml`) that does not exist yet. Build it when a second real contributor actually needs it, not preemptively.
 
 ---
 

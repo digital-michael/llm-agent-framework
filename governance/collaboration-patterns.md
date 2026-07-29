@@ -7,6 +7,7 @@ override: replacement
 
 > Adapted from: `meta-framework/meta_dynamics.md`
 > Validated, portable observations about how human-agent collaboration works.
+> Extended per-session by a personal profile's `collaboration-patterns.md` (override: extend) — see `agent-context-protocol.md` §Personal Profile Resolution.
 
 ---
 

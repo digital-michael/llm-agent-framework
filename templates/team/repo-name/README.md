@@ -19,13 +19,14 @@
 ## Session Start Load Order
 
 1. Infrastructure base system prompt: `<infrastructure-path>/governance/system-prompts/base-system-prompt.md`
-2. Infrastructure language overlay: `<infrastructure-path>/library/<lang>/governance-overlay.md`
-3. Domain governance: `<domain-path>/governance-overlay.md`
-4. Domain language overlay: `<domain-path>/library/<lang>/governance-overlay.md`
-5. **This file**
-6. Project lessons-learned: *[list paths to all lessons files in the project repo]*
-7. Active assignment (if resuming): `docs/governance/agent-assignment.md`
-8. Session context (if resuming): `docs/governance/session-context.md`
+2. **If `personal:` is set in this project's `.llm-framework.yml`:** personal profile (`<personal-path>/{context-protocol,collaboration-preferences,collaboration-patterns,roles-guide}.md`) — see `agent-context-protocol.md` §Personal Profile Resolution. Loaded every session regardless of task profile; skip entirely if `personal:` is absent.
+3. Infrastructure language overlay: `<infrastructure-path>/library/<lang>/governance-overlay.md`
+4. Domain governance: `<domain-path>/governance-overlay.md`
+5. Domain language overlay: `<domain-path>/library/<lang>/governance-overlay.md`
+6. **This file**
+7. Project lessons-learned: *[list paths to all lessons files in the project repo]*
+8. Active assignment (if resuming): `docs/governance/agent-assignment.md`
+9. Session context (if resuming): `docs/governance/session-context.md`
 
 ---
 

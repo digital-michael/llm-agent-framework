@@ -7,6 +7,7 @@ override: replacement
 
 > Adapted from: `meta-framework/meta_calibration.md`
 > Defines work modes, agent roles, and the mode-role matrix.
+> May be overridden per-session by a personal profile's `roles-guide.md` — see `agent-context-protocol.md` §Personal Profile Resolution.
 
 ---
 

@@ -89,6 +89,13 @@ Does a domain profile repo exist for this project's team?
 - If **yes**: confirm the path and continue
 - If **no**: **stop here**. Run `init-profile` (tool) or follow the team template manually to create it. Do not write project-level governance files before the domain layer exists — project files will reference the wrong paths or duplicate content that belongs in the domain layer
 
+### Step 2b: Personal Profile Check
+
+Does the operator already have a personal profile repo (Full mode)?
+
+- If **yes**: reference it from this project's `.llm-framework.yml` (`personal:` + `personal_identity:`) — it is cross-repo by design, applies equally whether this project's domain is solo or team-shared. See `governance/agent-context-protocol.md` §Personal Profile Resolution.
+- If **no**: ask whether one should be created now (copy `templates/personal/`) or deferred. Do not create one silently — it's private, cross-project content, worth an explicit decision rather than an assumed default.
+
 ### Step 3: Scaffold Project
 
 Run `scaffold-project` (tool) or manually write `.llm-framework.yml` at the project root:
@@ -96,6 +103,8 @@ Run `scaffold-project` (tool) or manually write `.llm-framework.yml` at the proj
 ```yaml
 infrastructure: <path-to-llm-agent-framework>
 team: <path-to-domain-profile>
+# personal: <path-to-personal-profile>       # if Step 2b confirmed one exists
+# personal_identity: <stable-identity-key>   # GitHub ID or similar; not an OS login name
 ```
 
 Confirm all declared paths exist before writing.

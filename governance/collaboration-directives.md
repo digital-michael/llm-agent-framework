@@ -7,6 +7,7 @@ override: replacement
 
 > Adapted from: `meta-framework/meta.md`
 > Defines how human-agent collaboration works: autonomy levels, the reinforcement loop, and reusable principles.
+> May be overridden per-session by a personal profile's `collaboration-preferences.md` — see `agent-context-protocol.md` §Personal Profile Resolution.
 
 ---
 
