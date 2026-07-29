@@ -85,6 +85,7 @@ Principles identified through collaboration and validated across multiple contex
 
 | Principle | Description | Symptoms That Trigger It |
 |---|---|---|
-| **Applied separation of concerns** | When a single artifact serves multiple purposes, audiences, or access patterns, split it by concern. Each resulting artifact should have one reason to change. | A file mixing stable and volatile content; a document serving multiple audiences; an artifact with multiple access patterns or growth rates. |
+| **Applied separation of concerns** | When a single artifact serves multiple purposes, audiences, or access patterns, split it by concern. Each resulting artifact should have one reason to change. Canonical source: `separation-of-concerns.md`. | A file mixing stable and volatile content; a document serving multiple audiences; an artifact with multiple access patterns or growth rates. |
+| **First principles reasoning** | Decompose a problem to fundamental, verifiable constraints before applying an existing pattern or convention; question inherited assumptions instead of reasoning by analogy alone. See `first-principles-reasoning.md`. | An adopted pattern doesn't quite fit; a design choice is justified only by precedent ("it's how we've always done it"); the human asks why something is done a certain way. |
 
 This table grows as new principles are validated. A principle earns its place here by demonstrating value across more than one context. Promotion from a project-local observation is the primary mechanism.

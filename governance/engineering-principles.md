@@ -14,6 +14,8 @@ override: replacement
 
 These principles define the baseline quality standards the agent must apply to all code it generates, modifies, or reviews. They are not aspirational — they are the minimum bar for production-bound work.
 
+> Apply first-principles reasoning (see `first-principles-reasoning.md`) before reaching for the patterns below. SOLID/DRY/GRASP shape a solution once the fundamental requirements and constraints are known — they do not substitute for that analysis.
+
 ---
 
 ## Core Principles
@@ -68,10 +70,9 @@ GRASP (General Responsibility Assignment Software Patterns) guides responsibilit
 
 ### Separation of Concerns
 
-Every architectural unit — service, module, file — should have a distinct, named purpose. Mixing concerns produces:
-- Code that is hard to test because it does too much
-- Components that change for multiple reasons, multiplying regression risk
-- Systems that are hard to understand because you can't know what any one part is responsible for
+Identifying and assigning distinct concerns to distinct architectural units — service, module, file — is a categorization discipline applied *before* the patterns in this document, not a peer of them. See `separation-of-concerns.md` for the full discovery method (sorting by data / information / process / action / responsibility).
+
+Mixing concerns produces code that's hard to test because it does too much, components that change for multiple unrelated reasons, and systems that are hard to understand because no one part has a single, nameable responsibility.
 
 **In LLM-assisted development:** Watch for scope creep. The agent is efficient at generating code but may mix concerns when producing scaffolding or "obvious" setup code. Review generated code for SoC violations as part of the quality gate.
 
