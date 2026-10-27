@@ -56,6 +56,7 @@ override: replacement
 - Examine code for type safety before marking any unit of work complete.
 - Check for: Domain-Driven Design alignment, YAGNI violations, and behavior consolidation opportunities (workflow management, API management, business logic, data isolation, UI orchestration).
 - Verify: builds without errors or warnings, dependencies correctly versioned, no missing dependencies.
+- Text a person reads (screens, messages, dialogs, command and setting descriptions) is defined once as a keyed message with named placeholders, not written inline in code, so it can be renamed and translated. Text a model reads, and text that is a contract (ids, log events, errors callers match), stays out of the catalogue. The language overlay names the mechanism. (D-041)
 
 ## Testing
 
