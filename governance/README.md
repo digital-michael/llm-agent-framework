@@ -22,6 +22,7 @@
 | `agent-roles-guide.md` | Work modes (Discover/Develop/Deliver), agent roles, and mode-role matrix | replacement |
 | `testing-standards.md` | Testing standards by environment (local/staging/production) and coverage targets | replacement |
 | `engineering-principles.md` | SOLID, DRY, GRASP, and architectural standards | replacement |
+| `best-practices.md` | Standing practices promoted from lessons: BP-1 tool drift (re-read tool definitions after a long gap, read back the first write), BP-2 intentional failures (read before fixing a failing build; the `INTENTIONAL-FAILURE` marker) | replacement |
 
 ---
 

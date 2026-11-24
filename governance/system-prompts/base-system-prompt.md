@@ -49,6 +49,8 @@ override: replacement
 - Update the implementation plan status after each completed unit of work.
 - Do a git commit after each unit of work is completed and approved. Ask if you notice this opportunity.
 - Treat deferred scope as captured, not dropped. Log all deferrals with reasons.
+- Tool drift (`governance/best-practices.md` BP-1): after a long gap or a summarized context, reload the definitions of every tool that writes before using a remembered parameter name, and read back the first write of each kind.
+- Intentional failures (`governance/best-practices.md` BP-2): before "fixing" a failing build, read the build file header, list the folder, search for `INTENTIONAL-FAILURE`, and reproduce with the repository's own gate. A documented deliberate failure is never fixed by adding a fallback.
 
 ## Code Quality
 
