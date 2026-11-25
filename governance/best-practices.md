@@ -167,8 +167,8 @@ These two were promoted to governance at the practitioner's direction (2026-11-2
 
 1. **One constant, one command.** Changing the constant and running the generator updates every display string (README, guides, text tables, command titles).
 2. **A rename tool**, dry run by default, that replaces the three cases of a name, moves files and folders that contain it, protects named tokens (a repository or branch name, a third-party product that shares the word) and skips dated history and lockfiles.
-3. **A retired-names check** that fails when a retired name appears in a current file. A hyphenated token is a different name; one line can be marked as a deliberate mention.
-4. **Retired-name tests are written by hand.** A blanket text replacement run over the tests that list retired names rewrites them into nonsense (`(Synod|Synod)`) that passes.
+3. **A retired-names check** that fails when a retired name appears in a current file. A hyphenated token is a different name; one line can be marked as a deliberate mention. When the operator wants a retired word to appear **nowhere**, keep it in the list as a hash of the lower-case word: the check hashes each word it reads, and no repository has to type the word.
+4. **Retired-name tests are written by hand.** A blanket text replacement run over the tests that list retired names rewrites them into nonsense (`(Old|Old)`) that passes.
 5. Write down what **no search finds**: repository and project names, stored secrets (BP-5), titles of earlier tickets, trademark clearance, the meaning of the name in each shipped language, and publishing.
 
 **Why.** One product was renamed three times in a day. The first rename touched 2,166 mentions in 168 files because identifiers carried the name; the third touched display text only.
