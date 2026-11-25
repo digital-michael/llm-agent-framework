@@ -22,7 +22,7 @@
 | `agent-roles-guide.md` | Work modes (Discover/Develop/Deliver), agent roles, and mode-role matrix | replacement |
 | `testing-standards.md` | Testing standards by environment (local/staging/production) and coverage targets | replacement |
 | `engineering-principles.md` | SOLID, DRY, GRASP, and architectural standards | replacement |
-| `best-practices.md` | Standing practices promoted from lessons: BP-1 tool drift (re-read tool definitions after a long gap, read back the first write), BP-2 intentional failures (read before fixing a failing build; the `INTENTIONAL-FAILURE` marker) | replacement |
+| `best-practices.md` | Standing practices promoted from lessons: BP-1 tool drift (re-read tool definitions after a long gap, read back the first write), BP-2 intentional failures (read before fixing a failing build; the `INTENTIONAL-FAILURE` marker), BP-3 where a program keeps its files (config, data, state under one vendor folder; logs not in `/tmp`), BP-4 configuration layers and what a repository may hold, BP-5 secrets, BP-6 processes (a loaded service keeps its old arguments; wait on conditions; logs), BP-7 rename-proof identifiers, BP-8 migrations of a user's files | replacement |
 
 ---
 

@@ -51,6 +51,7 @@ override: replacement
 - Treat deferred scope as captured, not dropped. Log all deferrals with reasons.
 - Tool drift (`governance/best-practices.md` BP-1): after a long gap or a summarized context, reload the definitions of every tool that writes before using a remembered parameter name, and read back the first write of each kind.
 - Intentional failures (`governance/best-practices.md` BP-2): before "fixing" a failing build, read the build file header, list the folder, search for `INTENTIONAL-FAILURE`, and reproduce with the repository's own gate. A documented deliberate failure is never fixed by adding a fallback.
+- Files and processes (`governance/best-practices.md` BP-3 to BP-8): keep a program's files in one vendor folder by kind (config, data, state) resolved in one place; never put a secret in an environment variable, shell profile or repository; treat a service manager's loaded definition as a copy (unload and load to change it, then verify the running process); give identifiers no brand name; migrate a user's files with a dry-run, idempotent, move-not-copy script that is tested on scratch copies.
 
 ## Code Quality
 
