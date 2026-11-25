@@ -90,7 +90,7 @@ These two were promoted to governance at the practitioner's direction (2026-11-2
 **How to apply.**
 
 1. One resolver per language, with **one shared test table** that every language's tests use; no path built by hand anywhere else.
-2. A check fails the build on a hand-typed home path or XDG folder outside the resolver.
+2. A check fails the build on a hand-typed home path or XDG folder outside the resolver (comments and help text that write `~/...` are not construction; a line that mirrors the rule on purpose says why, for example `path-ok: a script installed on its own`). The same check compares every copy of the shared test table.
 3. Environment variable prefixes are the platform's interface, not its brand: keep them stable across renames.
 
 **Why.** In one project the same folder rule was written seven times with small differences; the ledger database sat in a folder named for one of three programs that shared it; five services wrote logs to `/tmp`; and the audit logs were split across data and state.
@@ -118,6 +118,7 @@ These two were promoted to governance at the practitioner's direction (2026-11-2
 2. **Templates, not copies.** A service definition in the repository carries placeholders (`@HOME@`); the installer fills them in on the machine.
 3. **Non-secret machine settings live in one environment file in the config folder, read by the programs themselves.** Order: real environment variable, then the file, then the default. A shell profile is not a dependency: a program started by a service manager must not need one.
 4. Commands in shared configuration are bare names found on the service's `PATH`, not absolute paths into one person's home.
+5. **A setup or report script never prints a secret** (a "show the configured variables" command had printed the gateway key in clear), and it reads secrets without echo.
 
 **Why.** A machine's model routes were committed and pushed because the file looked like pending work; the gateway configuration named one person's home folder; and three settings that every service needed lived only in a shell profile.
 
@@ -134,6 +135,7 @@ These two were promoted to governance at the practitioner's direction (2026-11-2
 3. **A second copy is a leak.** Backups of a service definition that holds a key keep the key: delete them once the change is verified.
 4. Host-managed secret stores (an editor's keychain-backed storage) belong to the **extension id**: a rename of the id loses them. This is one more reason identifiers carry no brand (BP-7).
 5. A tool that must act as a person is gated by a token only that person reads; an intermediary may add the token on the person's behalf but never shows it to a model.
+6. A program that can read a secret file offers to use it ("use this machine's key") instead of asking for a paste; the secret is stored in the host's secret storage and never displayed.
 
 **Why.** The gateway key was exported from a shell profile (inherited by every program the user ran), copied into a backup of the service file, and lost when an extension id changed.
 
@@ -151,6 +153,7 @@ These two were promoted to governance at the practitioner's direction (2026-11-2
 4. Service names are generated per platform from one internal id (launchd label, systemd unit, Windows service); path rules do not depend on them.
 5. A status script compares what is **installed** with what is **built from source**, including shared dependencies: when a shared library changes, every program built from it is stale.
 6. Start, stop and install scripts are safe to run twice.
+7. **Order a change of where data lives: stop the service, install the new binary, move the data, start the service.** An install that restarts the running service, or a restart of an old binary after the move, creates an empty store at the old place that looks like data loss. A program that opens the store only per call still holds the old path in memory: reconnect or restart every long-lived client (an editor's tool server) after the move.
 
 **Why.** A gateway "restarted" after its definition was edited kept serving the old configuration, and the status script said the machine's routes were missing; the cause was visible only in the running process's arguments.
 
@@ -183,9 +186,11 @@ These two were promoted to governance at the practitioner's direction (2026-11-2
 3. **Stop the writers first**, then move, then start them, then verify with a script. A database in write-ahead mode is moved with its own backup interface and an integrity check, never with `cp` while it is open.
 4. **Move, do not copy; keep the old folder** (renamed with a date) until the person deletes it. Verify a checksum or an integrity check **before** removing the source.
 5. **Refuse on conflict and change nothing** when two places hold different data.
-6. **No long-lived fallback that reads the old path.** The migration runs once; after it the old paths are not read.
+6. **No long-lived fallback that reads the old path.** The migration runs once; after it the old paths are not read. A **tripwire** is not a fallback and is allowed until every machine has moved: while the old file exists and the new one does not, the program refuses to open an empty store and says which script to run. Mark it for removal.
 7. **Back up irreplaceable data first** and say where the backup is.
-8. **Test on scratch copies on every supported operating system** (a container for Linux), including the second run, a conflict, and a hand-edited file. Name any platform that is only written, not tested.
+8. **Test on scratch copies on every supported operating system** (a container for Linux), including the second run, a conflict, and a hand-edited file. Name any platform that is only written, not tested. Command-line tools differ between BSD and GNU (`stat -f` is a file's mode on macOS and a *filesystem report* on Linux: try the GNU form first); a test that passes on one system proves nothing about the other.
 9. Leave the person's own files (a shell profile) changed only with a backup and a report.
+10. **Refuse when a program other than the services you stop has the store open** (`lsof`), and say which; offer an explicit flag to go on. Tell the person what must be restarted afterwards.
+11. Keep an **end-to-end check on a fresh checkout and an empty home** (a second instance on another port, a scratch ledger and key) that also proves the real files were not touched; run it before the migration, not after.
 
 **Why.** A machine's routes were moved out of a repository with a script that was run twice, refused to overwrite a route that differed, kept the old service definition beside the new one, and restarted the service by unloading and loading it (BP-6).
